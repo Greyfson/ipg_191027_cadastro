@@ -6,11 +6,11 @@ package cadastro;
  */
 public class main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+        final int COLUNAS = 5;
+        final int LINHAS = Integer.parseInt(args[0]);
+        
+        String[][] matrizcadastro =  new String[LINHAS][COLUNAS];
+        
+        
 }
