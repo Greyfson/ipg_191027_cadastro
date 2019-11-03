@@ -6,18 +6,17 @@ import java.util.Scanner;
 public class Principal {
     static Scanner ler = new Scanner(System.in);
     static String[][] matrizCadastro;
+    
+    static String[] arrayAux={"Nome", "Idade", "Sexo", "Cidade", "Estado"};
     public static void main(String[] args) {
-        final int COLUNAS = 5;
+        
+        final int COLUNAS = arrayAux.length;
 //        final int LINHAS = Integer.parseInt(args[0]);
         final int LINHAS =3;
         
         matrizCadastro =  new String[LINHAS][COLUNAS];
-        String[] arrayAux = {"Nome", "Idade", "Sexo", "Cidade", "Estado"};
         System.out.println(matrizCadastro.length);
-        for(int i=0; i<COLUNAS; i++){
-            
-            matrizCadastro[0][i] = arrayAux[i];
-        }
+                
         String op;
         do{
             menuPrincipal();
@@ -70,8 +69,7 @@ public class Principal {
         switch(op){
             case "1":
                 String[][] matriz = matrizCadastro;
-                Arrays.sort(matriz[1], 1, matriz[1].length);
-                Comando.listar(matriz);
+                Comando.listar(matriz, arrayAux); //Envia as matrizes para 
                 break;
             case "2":
                 break;
