@@ -119,12 +119,6 @@ public class Comando {
                     //retorna um inteiro negativo se o valor unicode do objeto string preceder o da string de argumento;
                     //retorna um inteiro positivo se o valor unicode do objeto string suceder o da string de argumento;
                     //retorna zero se o valor unicode do objeto string e o da string de argumento forem iguais.
-                    System.out.println(""
-                            + "\nLINHA " + linha
-                            + "\nLINHA2 " + linha2
-                            + "\nCOLUNA " + coluna
-                            + "\nMATRIZ " + matrizAux[linha][coluna]
-                            + "\nMATRIZ2 " + matrizAux[linha2][coluna]);
                     if (matrizAux[linha][coluna].compareTo(matrizAux[linha2][coluna]) > 0) {
                         //percorre as colunas trocando os valores de cada campo
                         for (int col = 0; col < matrizAux[linha].length; col++) {
