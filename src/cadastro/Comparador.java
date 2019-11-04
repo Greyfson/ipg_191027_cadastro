@@ -20,11 +20,12 @@ public class Comparador implements Comparable<String[]> {
     @Override
     public int compareTo(String[] o) {
 
+        return 0;
     }
 
-    public int compare(Resultado[] elem1, Resultado[] elem2) {
-        return compare(elem1, elem2, index_to_compare); // recursividade para tratar diferentes colunas
-    }
+//    public int compare(Resultado[] elem1, Resultado[] elem2) {
+//        return compare(elem1, elem2, index_to_compare); // recursividade para tratar diferentes colunas
+//    }
 
     public int compare(int[] elem1, int elem2[], int index) {
         if (elem1.length == index) // verifica se ja procurou em todas as colunas

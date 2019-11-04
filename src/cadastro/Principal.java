@@ -4,46 +4,48 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Principal {
+
     static Scanner ler = new Scanner(System.in);
     static String[][] matrizCadastro;
-    
-    static String[] arrayAux={"Nome", "Idade", "Sexo", "Cidade", "Estado"};
+
     public static void main(String[] args) {
-        
-        final int COLUNAS = arrayAux.length;
+
+        final int COLUNAS = Comando.arrayAux.length;
 //        final int LINHAS = Integer.parseInt(args[0]);
-        final int LINHAS =3;
-        
-        matrizCadastro =  new String[LINHAS][COLUNAS];
-        System.out.println(matrizCadastro.length);
-                
+        final int LINHAS = 3;
+
+        matrizCadastro = new String[LINHAS][COLUNAS];
+        System.out.println("TAMANHO DA MATRIZ: "+ matrizCadastro.length+"X"+matrizCadastro[0].length);
+
         String op;
-        do{
+        do {
             menuPrincipal();
             op = ler.nextLine();
-            
-           switch(op){
-               case "1":
-                   Comando.cadastrar(matrizCadastro);
-                   break;
-               case "2":
-                   menuListar();
-                   break;
-               case "3":
-                   menuApagar();
-                   break;
-               case "4":
-                   Comando.pesquisar(matrizCadastro);
-                   break;
-               case "0":
-                   break;
-               default:
-                   System.out.println("Opcao Inválida!");
-                   
-           }
-        }
-        while(!op.equals("0"));
+
+            switch (op) {
+                case "1": //Cadastrar Usuários
+                    Comando.cadastrar(matrizCadastro);
+                    break;
+                case "2": //Listar Cadastros
+                    menuListar();
+                    break;
+                case "3": //Apagar Cadastro
+                    menuApagar();
+                    break;
+                case "4": //Pesquisar Cadastro por Nome
+//                    Comando.pesquisar(matrizCadastro,valor, arrayAux, "Nome");
+                    break;
+                case "5": //Listar Tamanho/Quantidade
+                    break;
+                case "0": //Sair do programa
+                    break;
+                default:
+                    System.out.println("Opcao Inválida!");
+
+            }
+        } while (!op.equals("0"));
     }
+
     public static void menuPrincipal() {
         System.out.print("\tMENU PRINCIPAL"
                 + "\n1 - Cadastrar Usuários"
@@ -54,6 +56,7 @@ public class Principal {
                 + "\n0 - Sair"
                 + "\n>>: ");
     }
+
     public static void menuListar() {
         System.out.print("\tLISTAR"
                 + "\n1 - Listar por ordem alfabética"
@@ -65,41 +68,41 @@ public class Principal {
                 + "\n0 - Voltar ao menu principal"
                 + "\n>>: ");
         String op = ler.nextLine();
-        
-        switch(op){
-            case "1":
-                String[][] matriz = matrizCadastro;
-                Comando.listar(matriz, arrayAux); //Envia as matrizes para 
+
+        switch (op) {
+            case "1": //Listar por ordem alfabética
+                Comando.listar(matrizCadastro, "Nome", "crescente");
                 break;
-            case "2":
+            case "2": //Listar por ordem crescente de idade
                 break;
-            case "3":
+            case "3": //Listar por cadastro do sexo feminino
                 break;
-            case "4":
+            case "4": //Listar por cadastro do sexo masculino
                 break;
-            case "5":
+            case "5": //Listar tamanho da matriz
                 break;
-            case "6":
+            case "6": //Listar quantidade de usuários cadastrados
                 break;
-            case "0":
+            case "0": //Voltar ao menu principal
                 break;
             default:
                 System.out.println("Opção inválida!");
         }
     }
+
     public static void menuApagar() {
         System.out.print("\tAPAGAR"
                 + "\n1 - Apagar por nome"
                 + "\n2 - Apagar todos"
                 + "\n0 - Voltar ao menu principal"
                 + "\n>>: ");
-            String op = ler.nextLine();
-            switch(op){
-            case "1":
+        String op = ler.nextLine();
+        switch (op) {
+            case "1": //Apagar por nome
                 break;
-            case "2":
+            case "2": //Apagar todos
                 break;
-            case "0":
+            case "0": //Voltar ao menu principal
                 break;
             default:
                 System.out.println("Opção inválida!");
