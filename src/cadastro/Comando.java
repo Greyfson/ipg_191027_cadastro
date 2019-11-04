@@ -10,15 +10,17 @@ public class Comando {
 
     public static void cadastrar(String[][] matriz) {
 
-        int idx = pegaUltimoIndiceDaMatriz(matriz);
+        int linha = pegaUltimoIndiceDaMatriz(matriz) + 1;
+        System.out.println("LINHA QUE SERÁ GRAVADA: " + linha);
 
-        if (idx < matriz.length-1) {
-            for (int i = 0; i < matriz[idx].length; i++) {
-                System.out.print(arrayAux[i] + ": ");
-                matriz[idx+1][i] = ler.nextLine();
+        if (linha < matriz.length) {
+            for (int c = 0; c < matriz[linha].length; c++) {
+                System.out.print(arrayAux[c] + ": ");
+                matriz[linha][c] = ler.nextLine();
             }
         } else {
-            System.out.println("A lista já está cheia!");
+            System.out.println(""
+                    + "\n<< A lista já está cheia! >>");
         }
     }
 
@@ -32,12 +34,13 @@ public class Comando {
     private static int pegaUltimoIndiceDaMatriz(String[][] matriz) {
         int i = -1;
         for (String[] linha : matriz) {
-            if (linha == null) {
+            if (linha[0] == null) {
                 break;
             } else {
                 i++;
             }
         }
+        System.out.println("ULTIMO INDICE: " + i);
         return i;
     }
 
@@ -56,10 +59,10 @@ public class Comando {
 
         //mostra em ordem crescente
         if (ordem.equals("crescente")) {
-            for (int j = 1; j < matriz.length; j++) {
-                if (matrizOrdenada[j][coluna] != null) {
-                    for (int i = 0; i < matrizOrdenada[coluna].length; i++) {
-                        System.out.println(arrayAux[i] + ": " + matrizOrdenada[j][i]);
+            for (int linha = 0; linha < matriz.length; linha++) {
+                if (matrizOrdenada[linha][coluna] != null) {
+                    for (int c = 0; c < matrizOrdenada[coluna].length; c++) {
+                        System.out.println(arrayAux[c] + ": " + matrizOrdenada[linha][c]);
                     }
                 }
             }
@@ -67,10 +70,10 @@ public class Comando {
 
         //mostra em ordem decrescente
         if (ordem.equals("decrescente")) {
-            for (int j = matriz.length - 1; j >= 0; j--) {
-                if (matrizOrdenada[j][0] != null) {
-                    for (int i = 0; i < matrizOrdenada[0].length; i++) {
-                        System.out.println(arrayAux[i] + ": " + matrizOrdenada[j][i]);
+            for (int linha = matriz.length - 1; linha >= 0; linha--) {
+                if (matrizOrdenada[linha][0] != null) {
+                    for (int c = 0; c < matrizOrdenada[0].length; c++) {
+                        System.out.println(arrayAux[c] + ": " + matrizOrdenada[linha][c]);
                     }
                 }
             }
@@ -79,6 +82,7 @@ public class Comando {
 
     /**
      * Encontra o indice do cabeçalho desejado
+     *
      * @param campo Nome do cabeçalho
      * @return Retorna o indice desejado (-1 se não localizado)
      */
@@ -96,6 +100,7 @@ public class Comando {
     }
 
     /**
+     * Ordena uma matriz pela coluna especificada
      *
      * @param matriz Matriz a ser ordenada
      * @param coluna Coluna que será usada para ordenação
@@ -110,10 +115,10 @@ public class Comando {
 
         //percorre as linhas da matriz até a penúltima posição
         for (int linha = 0; linha < matrizAux.length - 1; linha++) {
-            //se a proxima linha nao for nula
-            if (matrizAux[linha + 1][coluna] != null) {
-                //percorre as linhas da matriz a partir da proxima posição
-                for (int linha2 = linha + 1; linha2 < matrizAux.length; linha2++) {
+            //percorre as linhas da matriz a partir da proxima posição
+            for (int linha2 = linha + 1; linha2 < matrizAux.length; linha2++) {
+                //se esta linha nao for nula
+                if (matrizAux[linha2][coluna] != null) {
                     //compara a linha a ser verificada com as linhas posteriores
                     //String.compareTo(Object): faz uma comparação lexicográfica entre duas strings onde ela:
                     //retorna um inteiro negativo se o valor unicode do objeto string preceder o da string de argumento;
@@ -134,8 +139,56 @@ public class Comando {
         return matrizAux;
     }
 
-    public static void apagar(String[][] matriz) {
+    /**
+     * Apaga todos os itens (linhas) de uma matriz
+     *
+     * @param matriz Matriz original
+     */
+    public static void apagarTodos(String[][] matriz) {
 
+        //percorre as linhas da matriz inserindo null em todos os campos
+        for (int i = 0; i < matriz.length; i++) {
+            for (int c = 0; c < matriz[i].length; c++) {
+                matriz[i][c] = null;
+            }
+        }
+    }
+
+    /**
+     * Localiza e apaga um, ou todos os itens (linhas) de uma matriz
+     *
+     * @param matriz Matriz original
+     * @param valor Valor a ser encontrado
+     * @param campo Campo a ser pesquisado
+     */
+    public static void apagarPorCampo(String[][] matriz, String valor, String campo) {
+
+        int coluna = pegaIndiceDoCabecalho(campo);
+        int ultimaLinha = pegaUltimoIndiceDaMatriz(matriz);
+        //percorre as linhas da matriz
+        for (int linha = 0; linha <= ultimaLinha; linha++) {
+            //se encontrar o valor esperado
+            if (matriz[linha][coluna].equals(valor)) {
+                //se o item encontrado for a ultima linha da matriz
+                if (linha == matriz.length - 1) {
+                    for (int c = 0; c < matriz[linha].length; c++) {
+                        matriz[linha][c] = null;
+                    }
+                    break;
+                } else {
+                    //percorre as linhas restantes
+                    while (linha < ultimaLinha) {
+                        //reposicionando as linhas da matriz
+                        matriz[linha] = matriz[linha + 1];
+                        linha++;
+                    }
+                    for (int c = 0; c < matriz[linha].length; c++) {
+                        matriz[linha][c] = null;
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     public static void pesquisar(String[][] matriz, String valor, String campo) {
@@ -160,12 +213,12 @@ public class Comando {
         }
     }
 
-    public static void listarTamQuant(String[][] matriz) {
-
+    public static String pegaMedidaDaMatriz(String[][] matriz) {
+        return "" + matriz.length + "X" + matriz[0].length;
     }
 
-    public int pegaQuant(String[][] matriz) {
-        return matriz.length;
+    public int pegaQuantidadeCadastrado(String[][] matriz) {
+        return pegaUltimoIndiceDaMatriz(matriz) + 1;
     }
 
 }
